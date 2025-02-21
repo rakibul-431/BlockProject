@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="d-flex fles-wrap p-3">
+  <div class="col-2 pt-5">
+    {%if categorydata%}
+    {%for m in categorydata%}
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+      <label class="form-check-label" for="flexRadioDefault1">
+        <a class="text-decoration-none text-dark" href="{% url 'slug_wise_post' m.slug %}">{{m.name}}</a>
+      </label>
+    </div>
+    {%endfor%}
+    {%endif%}
+    
+
+  </div>
+  <div class="col-10">
+    <div class="container">
+
+      <h1 class="text-center mt-4">All post</h1>
+      <div class="row">
+        {% for i in postdata %}
+        <div class="col-lg-3 col-md-3 col-sm-6 mt-4">
+          <div class="card">
+            <div class="card-body">
+              <p>Title: {{i.title}}</p>
+              <p>Content : {{i.content}}</p>
+              <p>All category:</p>
+              {% if i.category %}
+              {% for b in i.category.all %}
+              <h4 class="btn btn-warning">{{b.name}}</h4>
+              {%endfor%}
+              {%endif%}
+              <h5>Author name: {{i.author.first_name}} </h5>
+            </div>
+          </div>
+        </div>
+        {%endfor%}
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+{%endblock%}
