@@ -13,7 +13,7 @@
     </div>
     {%endfor%}
     {%endif%}
-    
+
 
   </div>
   <div class="col-10">
@@ -23,9 +23,10 @@
       <div class="row">
         {% for i in postdata %}
         <div class="col-lg-3 col-md-3 col-sm-6 mt-4">
-          <div class="card">
+          <div class="card"><a href="{% url 'postview' i.id %}">
+            <img style="height:150px;" src="{{i.img.url}}" alt=""></a>
             <div class="card-body">
-              <p>Title: {{i.title}}</p>
+              <p>Title :{{i.title}}</a></p>
               <p>Content : {{i.content}}</p>
               <p>All category:</p>
               {% if i.category %}

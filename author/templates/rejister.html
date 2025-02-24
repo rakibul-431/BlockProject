@@ -4,8 +4,8 @@
    <h1 class="text-center">{{type}}</h1>
   <form method="post" style="width: 25%; margin:auto;">
     {% csrf_token %}
-   <!-- {{Form|crispy}} -->
-    {% for m in Form %}
+   <!-- {{form|crispy}} -->
+    {% for m in form %}
     {{m.label_tag}}
     {{m}}
     {{m.errors|striptags}}

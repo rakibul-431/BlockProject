@@ -5,6 +5,10 @@ from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm,SetP
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from posts.models import Post
+from django.contrib.auth.views import LoginView,LogoutView
+from django.utils.decorators import method_decorator
+from django.urls import reverse_lazy
+
 
 # Create your views here.
 
@@ -17,7 +21,7 @@ def UserRejistration(request):
            return redirect('rejisterpath')
     else:
         register_form=RejistrationForm()
-    return render(request,'rejister.html',{'Form':register_form,'type':'Rejisttration page'})
+    return render(request,'rejister.html',{'form':register_form,'type':'Rejisttration page'})
 
 
 
@@ -75,4 +79,24 @@ def pass_change(request):
 def log_out(request):
     logout(request) 
     return redirect('Homepage') 
+
+
+#Class base View .....
+class userlogin(LoginView):
+    template_name='rejister.html'
+    # success_url=reverse_lazy('author')
+    def get_success_url(self):
+        return reverse_lazy('userProfile')
+    def form_valid(self, form):
+        messages.success(self.request,'Login successfull.')
+        return super().form_valid(form)
+    def form_invalid(self, form):
+        messages.success(self.request,'Login information is incorrect.')
+        return super().form_invalid(form)
+    def get_context_data(self, **kwargs):
+        context= super().get_context_data(**kwargs)
+        context['type']='Login'
+        return context
+
+    
 
